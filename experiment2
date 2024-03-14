@@ -1,0 +1,448 @@
+
+#insert values into person table
+
+mysql> insert into person values(100,'archana','mukkam',2002,65478);
+Query OK, 1 row affected (0.12 sec)
+
+ysql> insert into person values(101,'sandra','mukkam',2002,78676),(102,'punnya','kondotty',2001,63459);
+Query OK, 2 rows affected (0.55 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from person;
++------+---------+----------+------+------------+
+| ssn  | name    | city     | dob  | aadhaar_no |
++------+---------+----------+------+------------+
+|  100 | archana | mukkam   | 2002 |      65478 |
+|  101 | sandra  | mukkam   | 2002 |      78676 |
+|  102 | punnya  | kondotty | 2001 |      63459 |
++------+---------+----------+------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+#insert values in student table
+
+mysql> insert into students value(1,'anusree',22,'abcdefg','female'),(2,'archana',22,'yegfgjhgfja','female'),(3,'rishana',23,'uhwugfusf','female');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++---------+---------+------+-------------+--------+
+| roll_no | name    | age  | address     | gender |
++---------+---------+------+-------------+--------+
+|       1 | anusree |   22 | abcdefg     | female |
+|       2 | archana |   22 | yegfgjhgfja | female |
+|       3 | rishana |   23 | uhwugfusf   | female |
++---------+---------+------+-------------+--------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+mysql> insert into customer value(10001,'archana','jfgefgf','clt',8783452618);
+Query OK, 1 row affected (0.12 sec)
+
+
+
+mysql> insert into customer value(10002,'punnya','hbvjhgsjggsik','ekm',7380964689);
+Query OK, 1 row affected (0.12 sec)
+
+
+mysql> insert into customer(cust_id,name,address,city) value(10003,'sandra','qeyufhqjfh','tvm');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into customer value(10004,'diya','gkfkjfkgjfkf','clt',9588964689);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customer(cust_id,name,address,city) value(10005,'anusree','nbcbdcgdhg','tvm');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from customer;
++---------+---------+---------------+------+------------+
+| cust_id | name    | address       | city | ph_no      |
++---------+---------+---------------+------+------------+
+|   10001 | archana | jfgefgf       | clt  | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm  | 7380964689 |
+|   10003 | sandra  | qeyufhqjfh    | tvm  |       NULL |
+|   10004 | diya    | gkfkjfkgjfkf  | clt  | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm  |       NULL |
++---------+---------+---------------+------+------------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| p_id  | int         | NO   | PRI | NULL    |       |
+| pname | varchar(10) | YES  |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into product values(1,'pen',20),(2,'pencil',10),(3,'soap',100),(4,'bag',140),(5,'box',55);
+Query OK, 5 rows affected (0.58 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    20 |
+|    2 | pencil |    10 |
+|    3 | soap   |   100 |
+|    4 | bag    |   140 |
+|    5 | box    |    55 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into invoice_master values(101,10001,'2024-02-28');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into invoice_master values(102,10001,'2024-02-28');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into invoice_master values(103,10003,'2024-02-25');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into invoice_master values(105,10004,'2024-02-09');
+Query OK, 1 row affected (0.11 sec)
+
+
+mysql> insert into invoice_master values(104,10003,'2024-02-09');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2024-02-28 |
+|    102 |   10001 | 2024-02-28 |
+|    103 |   10003 | 2024-02-25 |
+|    104 |   10003 | 2024-02-09 |
+|    105 |   10004 | 2024-02-09 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+
+ 
+
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | YES  | MUL | NULL    |       |
+| p_id     | int  | YES  | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+
+mysql> insert into invoice_item values(101,2,1);
+Query OK, 1 row affected (0.13 sec)
+
+
+mysql> insert into invoice_item values(101,1,2);
+Query OK, 1 row affected (0.51 sec)
+
+mysql> insert into invoice_item values(102,3,1);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into invoice_item values(103,5,4);
+Query OK, 1 row affected (0.13 sec)
+
+
+mysql> insert into invoice_item values(104,2,5);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into invoice_item values(105,5,3);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    101 |    2 |        1 |
+|    101 |    1 |        2 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
+|    105 |    5 |        3 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+#update the price of a particular product
+
+mysql> update product set price=30 where p_id=1;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    30 |
+|    2 | pencil |    10 |
+|    3 | soap   |   100 |
+|    4 | bag    |   140 |
+|    5 | box    |    55 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#change the name of the city clt to kozhikode in the customer table
+
+mysql> update  customer set city='kozhikode' where city='clt';
+Query OK, 2 rows affected (0.14 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | kozhikode | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | qeyufhqjfh    | tvm       |       NULL |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#update all prices with 10% of its original price
+
+mysql> update product set price=price+(price*10/100);
+Query OK, 5 rows affected (0.13 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+change the address,city,phone number of a particular customer
+
+mysql> update customer set address='fbjhdfgjhdkgj',city='ekm',ph_no=6578949056 where name='sandra';
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | kozhikode | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#change the quantity of a purchased product of inv_id 101
+
+mysql> update invoice_item set quantity=5 where inv_id=101;
+Query OK, 2 rows affected (0.13 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    101 |    2 |        5 |
+|    101 |    1 |        5 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
+|    105 |    5 |        3 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+mysql> delete from invoice_item where inv_id=101;
+Query OK, 2 rows affected (0.13 sec)
+
+mysql> delete from invoice_item where inv_id=102;
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
+|    105 |    5 |        3 |
++--------+------+----------+
+
+
+
+
+
+
+mysql> delete from invoice_master where inv_id=101;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from invoice_master where inv_id=102;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    103 |   10003 | 2024-02-25 |
+|    104 |   10003 | 2024-02-09 |
+|    105 |   10004 | 2024-02-09 |
++--------+---------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+#delete the record of customer id 10001
+
+mysql> delete from customer where cust_id=10001;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+#delete all purchase details of items its quantity less than 4
+
+mysql> delete from invoice_item where quantity<4;
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    103 |    5 |        4 |
+|    104 |    2 |        5 |
++--------+------+----------+
+2 rows in set (0.00 sec)
+
+
+
+
+#delete the purchase details of pencil in the inv_id 103
+mysql> delete from invoice_item where p_id=5;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    104 |    2 |        5 |
++--------+------+----------+
+1 row in set (0.00 sec)
+
+
+
+
+#delete details of employees who doesnot have phone number
+
+mysql> delete from customer where ph_no is null;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from customer;
++---------+--------+---------------+-----------+------------+
+| cust_id | name   | address       | city      | ph_no      |
++---------+--------+---------------+-----------+------------+
+|   10002 | punnya | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya   | gkfkjfkgjfkf  | kozhikode | 9588964689 |
++---------+--------+---------------+-----------+------------+
+
+
+
+
+#delete all records from students table
+
+mysql> delete from students;
+Query OK, 3 rows affected (0.12 sec)
+
+mysql> select * from students;
+Empty set (0.01 sec)
+
+
+
+#delete invoice details of a particular customer
+
+mysql> delete from invoice_master where cust_id=10004;
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    103 |   10003 | 2024-02-25 |
+|    104 |   10003 | 2024-02-09 |
++--------+---------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
