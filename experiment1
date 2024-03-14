@@ -1,0 +1,333 @@
+#create a table employee having following fields(emp_id,name,city,dob,aadhaar_no)
+
+mysql> create table employee(emp_id int not null,name varchar(20),city varchar(20),dob date,aadhaar_no int not null);
+Query OK, 0 rows affected (1.64 sec)
+
+
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int         | NO   |     | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| aadhaar_no | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+
+#create a table students having fields(roll_no,name,age,address,gender) and add following constraints on it
+#roll_no - primary key
+#name - does not allow null values
+#age - must be in between(0-99), does not allow null values
+#gender - default value is m
+
+mysql> create table students(roll_no int primary key,name varchar(20) not null,age int not null check(0<age<99),address varchar(50),gender varchar(10) default 'm');
+Query OK, 0 rows affected (0.74 sec)
+
+
+mysql> desc students;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#create a temporary table student1 of student relation
+
+mysql> create temporary table student1(roll_no int primary key,name varchar(20) not null,age int not null check(0<age<99),address varchar(50),gender varchar(10) default 'm');
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+#create a duplicate table of employee
+
+mysql> create table employee1 as select * from employee;
+Query OK, 0 rows affected (0.91 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+
+#create a database invoice
+
+mysql> create database INVOICE;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> use INVOICE;
+Database changed
+
+
+
+
+#create a table customer
+
+mysql> create table customer(cust_id int primary key,name varchar(20),address varchar(50),city varchar(20),ph_no int(10));
+Query OK, 0 rows affected, 1 warning (1.67 sec)
+
+
+
+
+#create a table product
+
+mysql> create table product(p_id int primary key,pname varchar(10),price int default 0); 
+Query OK, 0 rows affected (0.58 sec)
+
+
+
+#create a table invoice_master
+
+mysql> create table invoice_master(inv_id int primary key,cust_id int,inv_date date,foreign key(cust_id) references customer(cust_id));
+Query OK, 0 rows affected (1.32 sec)
+
+
+
+
+#create a table invoice_item
+
+mysql> create table invoice_item(inv_id int,p_id int,quantity int,foreign key(inv_id) references invoice_master(inv_id),foreign key(p_id) references product(p_id));
+Query OK, 0 rows affected (1.73 sec)
+
+
+
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cust_id | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| city    | varchar(20) | YES  |     | NULL    |       |
+| ph_no   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| p_id  | int         | NO   | PRI | NULL    |       |
+| pname | varchar(10) | YES  |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | YES  | MUL | NULL    |       |
+| p_id     | int  | YES  | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> use ksb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_ksb |
++---------------+
+| book          |
+| details       |
+| employee      |
+| employee1     |
+| student       |
+| students      |
++---------------+
+6 rows in set (0.00 sec)
+
+
+
+#add a column ssn at the first position in the table employee
+
+mysql> alter table employee add column ssn int first;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  |     | NULL    |       |
+| emp_id     | int         | NO   |     | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| aadhaar_no | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+change the datatype of the column dob in year in the table employee
+
+mysql> alter table employee modify column dob year;
+Query OK, 0 rows affected (2.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  |     | NULL    |       |
+| emp_id     | int         | NO   |     | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | year        | YES  |     | NULL    |       |
+| aadhaar_no | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+#delete the column emp_id in the table employee
+
+mysql> alter table employee drop column emp_id;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  |     | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | year        | YES  |     | NULL    |       |
+| aadhaar_no | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#add the constraint unique for columns ssn, aadhaar_no in the table employee
+
+mysql> alter table employee add unique(ssn);
+Query OK, 0 rows affected (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add unique(aadhaar_no);
+Query OK, 0 rows affected (1.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  | UNI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | year        | YES  |     | NULL    |       |
+| aadhaar_no | int         | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> alter table employee modify column aadhaar_no int;
+Query OK, 0 rows affected (1.86 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add unique(aadhaar_no);
+Query OK, 0 rows affected, 1 warning (0.44 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  | UNI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | year        | YES  |     | NULL    |       |
+| aadhaar_no | int         | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+#delete the not null constraint of age in the student table
+
+mysql> alter table students modify column age int;
+Query OK, 0 rows affected (1.66 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+#change the table name employee as person
+
+mysql> alter table employee rename to person;
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> desc person;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ssn        | int         | YES  | UNI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | year        | YES  |     | NULL    |       |
+| aadhaar_no | int         | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+#delete the table student1
+
+mysql> drop table student1;
+Query OK, 0 rows affected (0.00 sec)
+
+
