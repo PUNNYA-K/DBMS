@@ -1,0 +1,228 @@
+#COMMIT
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee values(107,'shilu',20000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
++------+---------+--------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+
+#ROLLBACK
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
++------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> delete from employee where id=106;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  107 | shilu   |  20000 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
++------+---------+--------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+#SAVEPOINT
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
++------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> insert into employee values(108,'thehzi',30000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into employee values(109,'anju',20000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into employee values(110,'amala',21000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
+|  108 | thehzi  |  30000 |
+|  109 | anju    |  20000 |
+|  110 | amala   |  21000 |
++------+---------+--------+
+10 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee;
++------+---------+--------+
+| id   | name    | salary |
++------+---------+--------+
+|  101 | archana |  26000 |
+|  102 | sandra  |  30000 |
+|  103 | rishana |  23000 |
+|  104 | diya    |  22000 |
+|  105 | hudha   |  25000 |
+|  106 | anusree |  20000 |
+|  107 | shilu   |  20000 |
+|  108 | thehzi  |  30000 |
+|  109 | anju    |  20000 |
++------+---------+--------+
+9 rows in set (0.00 sec)
+
+
+
+
+
+
+#GRANT
+
+mysql> create user punnya@'localhost' identified by 'mypass';
+Query OK, 0 rows affected (0.83 sec)
+
+mysql> create user archana@'localhost' identified by 'password';
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> grant select on invoice.customer to punnya@'localhost';
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> show grants for punnya@'localhost';
++--------------------------------------------------------------+
+| Grants for punnya@localhost                                  |
++--------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `punnya`@`localhost`                   |
+| GRANT SELECT ON `invoice`.`customer` TO `punnya`@`localhost` |
++--------------------------------------------------------------+
+2 rows in set (0.01 sec)
+
+mysql> grant select,update on invoice.customer to archana@'localhost';
+Query OK, 0 rows affected (0.61 sec)
+
+
+mysql> show grants for archana@'localhost';
++-----------------------------------------------------------------------+
+| Grants for archana@localhost                                          |
++-----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `archana`@`localhost`                           |
+| GRANT SELECT, UPDATE ON `invoice`.`customer` TO `archana`@`localhost` |
++-----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+#REVOKE
+
+mysql> revoke select on invoice.customer from archana@'localhost';
+Query OK, 0 rows affected (0.53 sec)
+
+mysql> show grants for archana@'localhost';
++---------------------------------------------------------------+
+| Grants for archana@localhost                                  |
++---------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `archana`@`localhost`                   |
+| GRANT UPDATE ON `invoice`.`customer` TO `archana`@`localhost` |
++---------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
