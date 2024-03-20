@@ -1,0 +1,139 @@
+#LIST ALL CUSTOMER DETAILS
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | clt       | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+#LIST PNAME, PRICE OF ALL PRODUCTS
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,price from product;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    33 |
+| pencil |    11 |
+| soap   |   110 |
+| bag    |   154 |
+| box    |    61 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+#LIST ALL INVOICE ITEMS AVOID DUPLICATES
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    104 |    2 |        5 |
+|    101 |    2 |        1 |
+|    101 |    1 |        2 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    105 |    5 |        3 |
++--------+------+----------+
+6 rows in set (0.01 sec)
+
+mysql> select distinct p_id from invoice_item;
++------+
+| p_id |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    5 |
++------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+#LIST PRODUCT PRICE BETWEEN 50RS AND 150RS
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product where price between 50 and 150;
++------+-------+-------+
+| p_id | pname | price |
++------+-------+-------+
+|    3 | soap  |   110 |
+|    5 | box   |    61 |
++------+-------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+#LIST THE CUSTOMER DETAILS WHO LIVES IN EKM , TVM
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | clt       | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where city in('ekm','tvm');
++---------+---------+---------------+------+------------+
+| cust_id | name    | address       | city | ph_no      |
++---------+---------+---------------+------+------------+
+|   10002 | punnya  | hbvjhgsjggsik | ekm  | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm  | 6578949056 |
+|   10005 | anusree | nbcbdcgdhg    | tvm  |       NULL |
++---------+---------+---------------+------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
