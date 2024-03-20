@@ -1,0 +1,79 @@
+#LIST THE CUSTOMER NAMES OF INVOICE DATE 9th FEBRUARY 2024
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | clt       | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2024-02-28 |
+|    102 |   10001 | 2024-02-28 |
+|    103 |   10003 | 2024-02-25 |
+|    104 |   10003 | 2024-02-09 |
+|    105 |   10004 | 2024-02-09 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select name from customer where cust_id in(select cust_id from invoice_master where inv_date='2024-02-09');
++--------+
+| name   |
++--------+
+| sandra |
+| diya   |
++--------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+#LIST THE PRODUCT NAME AND PRICE OF EACH INVOICE_ITEM
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    104 |    2 |        5 |
+|    101 |    2 |        1 |
+|    101 |    1 |        2 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    105 |    5 |        3 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select pname,price from product where p_id in(select p_id from invoice_item);
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    33 |
+| pencil |    11 |
+| soap   |   110 |
+| box    |    61 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+
