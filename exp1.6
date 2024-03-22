@@ -1,0 +1,108 @@
+#LIST PRODUCT NAME, PRICE EXCEPT SOAP ON PRICE ORDER
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,price from product where pname!='soap' order by price;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pencil |    11 |
+| pen    |    33 |
+| box    |    61 |
+| bag    |   154 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+#FIND MINIMUM, MAXIMUM AND AVERAGE PRICE OF PRODUCTS
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select min(price),max(price),avg(price) from product;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|         11 |        154 |    73.8000 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+#FIND NUMBER OF CUSTOMERS IN EACH CITY
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | clt       | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.03 sec)
+
+mysql> select city,count(*) from customer group by city;
++-----------+----------+
+| city      | count(*) |
++-----------+----------+
+| clt       |        1 |
+| ekm       |        2 |
+| kozhikode |        1 |
+| tvm       |        1 |
++-----------+----------+
+4 rows in set (0.02 sec)
+
+
+
+
+
+
+#FIND NUMBER OF CUSTOMER IN EACH CITY,ONLY INCLUDE CITY WITH MORE THAN 1 CUSTOMER
+
+mysql> select * from customer;
++---------+---------+---------------+-----------+------------+
+| cust_id | name    | address       | city      | ph_no      |
++---------+---------+---------------+-----------+------------+
+|   10001 | archana | jfgefgf       | clt       | 8783452618 |
+|   10002 | punnya  | hbvjhgsjggsik | ekm       | 7380964689 |
+|   10003 | sandra  | fbjhdfgjhdkgj | ekm       | 6578949056 |
+|   10004 | diya    | gkfkjfkgjfkf  | kozhikode | 9588964689 |
+|   10005 | anusree | nbcbdcgdhg    | tvm       |       NULL |
++---------+---------+---------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select city,count(*) from customer group by city having count(city)>1;
++------+----------+
+| city | count(*) |
++------+----------+
+| ekm  |        2 |
++------+----------+
+1 row in set (0.00 sec)
+
