@@ -1,0 +1,58 @@
+#LIST THE PRODUCT NAME AND QUANTITY OF INVOICE ITEMS
+
+mysql> select * from product;
++------+--------+-------+
+| p_id | pname  | price |
++------+--------+-------+
+|    1 | pen    |    33 |
+|    2 | pencil |    11 |
+|    3 | soap   |   110 |
+|    4 | bag    |   154 |
+|    5 | box    |    61 |
++------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|    104 |    2 |        5 |
+|    101 |    2 |        1 |
+|    101 |    1 |        2 |
+|    102 |    3 |        1 |
+|    103 |    5 |        4 |
+|    105 |    5 |        3 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select pname,quantity from product inner join invoice_item on product.p_id=invoice_item.p_id;
++--------+----------+
+| pname  | quantity |
++--------+----------+
+| pencil |        5 |
+| pencil |        1 |
+| pen    |        2 |
+| soap   |        1 |
+| box    |        4 |
+| box    |        3 |
++--------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+#DISPLAY INVOICE DETAILS OF THE TRANSACTION DATED ON '25-02-2024'
+
+mysql> select * from customer inner join invoice_master on customer.cust_id=invoice_master.cust_id inner join invoice_item on invoice_master.inv_id=invoice_item.inv_id inner join product on invoice_item.p_id=product.p_id where inv_date='2024-02-25';
++---------+--------+---------------+------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+| cust_id | name   | address       | city | ph_no      | inv_id | cust_id | inv_date   | inv_id | p_id | quantity | p_id | pname | price |
++---------+--------+---------------+------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+|   10003 | sandra | fbjhdfgjhdkgj | ekm  | 6578949056 |    103 |   10003 | 2024-02-25 |    103 |    5 |        4 |    5 | box   |    61 |
++---------+--------+---------------+------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
+1 row in set (0.09 sec)
+
+
