@@ -1,0 +1,242 @@
+#WRITE A MONGODB QUERY TO CREATE AN INVOICE DATABASE AND COLLECTIONS(CUSTOMER,PRODUCT) AND ITS CORRESPONDING DOCUMENTS
+
+test> use INVOICE
+switched to db INVOICE
+INVOICE> db.createCollection('customer')
+{ ok: 1 }
+INVOICE> db.createCollection('product')
+{ ok: 1 }
+
+
+INVOICE> db.customer.insert({"name":"archana","address":"jfgefgf","city":"clt","ph_no":"8783452618"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613721a66c7d2f96fef634b') }
+}
+INVOICE> db.customer.insert({"name":"punnya","address":"hbvjhgsjggsik","city":"ekm","ph_no":"7380964689"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613721e66c7d2f96fef634c') }
+}
+INVOICE> db.customer.insert({"name":"sandra","address":"qeyufhqjfh","city":"tvm"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613725566c7d2f96fef634d') }
+}
+INVOICE> db.customer.insert({"name":"diya","address":"gkfkjfkgjfkf","city":"clt","ph_no":"9588964689"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613729366c7d2f96fef634e') }
+}
+INVOICE> db.customer.insert({"name":"anusree","address":"nbcbdcgdhg","city":"tvm"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661372b566c7d2f96fef634f') }
+}
+
+
+
+
+
+
+INVOICE> db.product.insert({"pname":"pen","price":"20"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613866332df61a5ceef634b') }
+}
+INVOICE> db.product.insert({"pname":"pencil","price":"10"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613867332df61a5ceef634c') }
+}
+INVOICE> db.product.insert({"pname":"soap","price":"100"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613868532df61a5ceef634d') }
+}
+INVOICE> db.product.insert({"pname":"bag","price":"140"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6613869932df61a5ceef634e') }
+}
+INVOICE> db.product.insert({"pname":"box","price":"55"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661386ae32df61a5ceef634f') }
+}
+
+
+
+
+
+#WRITE A MONGODB QUERY TO FIND ALL DOCUMENTS FROM THE COLLECTION CUSTOMER
+
+INVOICE> db.customer.find()
+
+[
+  {
+    _id: ObjectId('6613721a66c7d2f96fef634b'),
+    name: 'archana',
+    address: 'jfgefgf',
+    city: 'clt',
+    ph_no: '8783452618'
+  },
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  }
+]
+
+
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO FIND ALL DOCUMENTS FROM THE COLLECTION PRODUCT
+
+INVOICE> db.product.find()
+[
+  {
+    _id: ObjectId('6613866332df61a5ceef634b'),
+    pname: 'pen',
+    price: '20'
+  },
+  {
+    _id: ObjectId('6613867332df61a5ceef634c'),
+    pname: 'pencil',
+    price: '10'
+  },
+  {
+    _id: ObjectId('6613868532df61a5ceef634d'),
+    pname: 'soap',
+    price: '100'
+  },
+  {
+    _id: ObjectId('6613869932df61a5ceef634e'),
+    pname: 'bag',
+    price: '140'
+  },
+  {
+    _id: ObjectId('661386ae32df61a5ceef634f'),
+    pname: 'box',
+    price: '55'
+  }
+]
+
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO UPDATE THE CITY IN THE COLLECTION CUSTOMER
+
+INVOICE> db.customer.updateMany({"city":"clt"},{$set:{"city":"calicut"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+INVOICE> db.customer.find()
+
+
+
+INVOICE> db.customer.deleteOne({"city":"calicut"})
+{ acknowledged: true, deletedCount: 1 }
+INVOICE> db.customer.find()
+[
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  }
+]
+
+
+
+
+
+#WRITE A MONGODB QUERY TO DELETE THE FIRST MATCHED DOCUMENT WHOSE CITY IS CALICUT
+
+INVOICE> db.customer.deleteOne({"city":"calicut"})
+{ acknowledged: true, deletedCount: 1 }
+INVOICE> db.customer.find()
+[
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  }
+]
+
+
