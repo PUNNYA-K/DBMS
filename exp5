@@ -1,0 +1,155 @@
+#WRITE A MONGODB QUERY TO SORT CUSTOMER DETAILS IN ASCENDING ORDER OF THEIR NAMES
+
+INVOICE> db.customer.find().sort({name:1})
+[
+  {
+    _id: ObjectId('661ca488835ff8f3f7ef634b'),
+    name: 'anu',
+    address: 'gjshfgjsa',
+    city: 'tvm',
+    ph_no: '7685948377',
+    age: 55
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  },
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  }
+]
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO COUNT NUMBER OF CUSTOMERS IN EACH CITY
+
+INVOICE> db.customer.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
+[
+  { _id: 'ekm', total: 1 },
+  { _id: 'tvm', total: 3 },
+  { _id: 'calicut', total: 1 }
+]
+
+
+
+
+
+#WRITE A MONGODB QUERY TO FIND MINIMUM AND MAXIMUM AGE IN EACH CITY
+
+
+INVOICE> db.customer.insert({"name":"anjali","address":"abcd","city":"tvm","ph_no":"9898987656","age":22})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661cc1e1835ff8f3f7ef634c') }
+}
+INVOICE> db.customer.insert({"name":"amala","address":"abcdef","city":"ekm","ph_no":"9867671232","age":30})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661cc224835ff8f3f7ef634d') }
+}
+INVOICE> db.customer.insert({"name":"hudha","address":"wxyz","city":"ekm","ph_no":"9865748576","age":20})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661cc270835ff8f3f7ef634e') }
+}
+
+
+
+
+INVOICE> db.customer.find()
+[
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('661ca488835ff8f3f7ef634b'),
+    name: 'anu',
+    address: 'gjshfgjsa',
+    city: 'tvm',
+    ph_no: '7685948377',
+    age: 55
+  },
+  {
+    _id: ObjectId('661cc1e1835ff8f3f7ef634c'),
+    name: 'anjali',
+    address: 'abcd',
+    city: 'tvm',
+    ph_no: '9898987656',
+    age: 22
+  },
+  {
+    _id: ObjectId('661cc224835ff8f3f7ef634d'),
+    name: 'amala',
+    address: 'abcdef',
+    city: 'ekm',
+    ph_no: '9867671232',
+    age: 30
+  },
+  {
+    _id: ObjectId('661cc270835ff8f3f7ef634e'),
+    name: 'hudha',
+    address: 'wxyz',
+    city: 'ekm',
+    ph_no: '9865748576',
+    age: 20
+  }
+]
+
+
+
+
+INVOICE> db.customer.aggregate([{$group:{_id:"$city",min_age:{$min:"$age"},max_age:{$max:"$age"}}}])
+[
+  { _id: 'ekm', min_age: 20, max_age: 30 },
+  { _id: 'tvm', min_age: 22, max_age: 55 },
+  { _id: 'calicut', min_age: null, max_age: null }
+]
+
+
+
+
