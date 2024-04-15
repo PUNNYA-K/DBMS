@@ -1,0 +1,77 @@
+#WRITE A MONGODB QUERY TO DISPLAY THE CUSTOMER DOCUMENTS HAVING CITY EKM AND TVM
+
+INVOICE> db.customer.find({$or:[{"city":"ekm"},{"city":"tvm"}]}).pretty()
+[
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613725566c7d2f96fef634d'),
+    name: 'sandra',
+    address: 'qeyufhqjfh',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('661372b566c7d2f96fef634f'),
+    name: 'anusree',
+    address: 'nbcbdcgdhg',
+    city: 'tvm'
+  }
+]
+
+
+
+
+
+#WRITE A MONGODB QUERY TO DISPLAY ALL CUSTOMER DOCUMENTS WHO HAVE AGE>50
+
+
+INVOICE> db.customer.insert({"name":"anu","address":"gjshfgjsa","city":"tvm","ph_no":"7685948377","age":55})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('661ca488835ff8f3f7ef634b') }
+}
+INVOICE> db.customer.find({"age":{$gt:50}}).pretty()
+[
+  {
+    _id: ObjectId('661ca488835ff8f3f7ef634b'),
+    name: 'anu',
+    address: 'gjshfgjsa',
+    city: 'tvm',
+    ph_no: '7685948377',
+    age: 55
+  }
+]
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO FIND CUSTOMER DOCUMENTS WHO NOT LIVE IN TVM
+
+
+INVOICE> db.customer.find({"city":{$ne:"tvm"}}).pretty()
+[
+  {
+    _id: ObjectId('6613721e66c7d2f96fef634c'),
+    name: 'punnya',
+    address: 'hbvjhgsjggsik',
+    city: 'ekm',
+    ph_no: '7380964689'
+  },
+  {
+    _id: ObjectId('6613729366c7d2f96fef634e'),
+    name: 'diya',
+    address: 'gkfkjfkgjfkf',
+    city: 'calicut',
+    ph_no: '9588964689'
+  }
+]
+
+
