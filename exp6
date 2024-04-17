@@ -1,0 +1,73 @@
+#WRITE A MONGODB QUERY TO CREATE A USER CUSTOMER1 AND GRANT READ ROLE IN THE INVOICE DATABASE
+
+INVOICE> db.createUser(
+... {
+... user:"customer1",
+... pwd:"1234",
+... roles:[
+... {role:"read",db:"INVOICE"},
+... ]
+... }
+... )
+{ ok: 1 }
+
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO CREATE THE BACKUP FOR THE INVOICE DATABASE
+
+test> use dummy
+switched to db dummy
+dummy> db.createCollection("customer")
+{ ok: 1 }
+dummy> show dbs
+INVOICE  144.00 KiB
+admin    132.00 KiB
+config   108.00 KiB
+dummy      8.00 KiB
+ksb       48.00 KiB
+local     72.00 KiB
+
+
+test> 
+[1]+  Stopped                 mongosh
+(base) ksb@ksb-OptiPlex-3060:~$ mongodump --db dummy
+(base) ksb@ksb-OptiPlex-3060:~$ mongosh
+
+test> use dummy
+switched to db dummy
+dummy> db.dropDatabase()
+{ ok: 1, dropped: 'dummy' }
+dummy> show dbs
+INVOICE  144.00 KiB
+admin    132.00 KiB
+config    72.00 KiB
+ksb       48.00 KiB
+local     72.00 KiB
+dummy> 
+[2]+  Stopped                 mongosh
+
+
+
+
+
+
+
+#WRITE A MONGODB QUERY TO RESTORE A PARTICULAR DATABASE OR A COLLECTION
+
+(base) ksb@ksb-OptiPlex-3060:~$ mongorestore --db dummy dump/dummy
+2024-04-17T14:44:36.165+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+(base) ksb@ksb-OptiPlex-3060:~$ mongosh
+
+test> show dbs
+INVOICE  144.00 KiB
+admin    132.00 KiB
+config    72.00 KiB
+dummy      8.00 KiB
+ksb       48.00 KiB
+local     72.00 KiB
+test> 
+
